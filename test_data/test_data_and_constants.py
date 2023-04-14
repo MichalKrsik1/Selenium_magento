@@ -10,3 +10,5 @@ tank_colors = ["purple", "white", "yellow"]
 hoodie_colors = ["black", "gray", "green"]
 
 success_order_message = "Thank you for your purchase!"
+
+TIME_UNTIL_LOADED = 10

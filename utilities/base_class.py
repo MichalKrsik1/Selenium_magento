@@ -7,7 +7,6 @@ import logging
 class Base:
 
     def get_logger(self):
-        self.driver.implicitly_wait(2)
         logger_name = inspect.stack()[1][3]
         logger = logging.getLogger(logger_name)
 

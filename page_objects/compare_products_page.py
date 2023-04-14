@@ -6,11 +6,7 @@ class CompareProductsPage:
     def __init__(self, driver):
         self.driver = driver
 
-    products = (By.CLASS_NAME, "info")
+    _products = (By.CLASS_NAME, "info")
 
     def get_product_count(self):
-        prods = self.driver.find_elements(*CompareProductsPage.products)
-
-        return len(prods)
-
-
+        return len(self.driver.find_elements(*CompareProductsPage._products))

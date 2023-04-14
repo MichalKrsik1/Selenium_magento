@@ -1,11 +1,10 @@
-import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-from page_objects.log_page import LoginPage
-from page_objects.post_login_home_page import PostLogin
+from page_objects.login_page import LoginPage
+from page_objects.post_login_page import PostLogin
 
 
 @pytest.fixture(scope="class")
@@ -15,6 +14,7 @@ def setup(request):
     driver.maximize_window()
     driver.implicitly_wait(3)
     request.cls.driver = driver
+    driver.implicitly_wait(2)
 
     login = (By.LINK_TEXT, "Sign In")
 
@@ -24,7 +24,6 @@ def setup(request):
     yield
     post_login_page = PostLogin(driver)
     post_login_page.logout()
-    time.sleep(2)
     driver.close()
 
 
@@ -35,5 +34,6 @@ def setup_nolog(request):
     driver.maximize_window()
     driver.implicitly_wait(3)
     request.cls.driver = driver
+    driver.implicitly_wait(2)
     yield
     driver.close()

@@ -1,35 +1,29 @@
 from utilities.base_class import Base
 from page_objects.home_page import HomePage
 from utilities.conftest import setup
-from test_data.random_data import tank_colors, hoodie_colors
+from test_data.test_data_and_constants import tank_colors, hoodie_colors
 
 EXPECTED_NUMBER_OF_PRODUCTS = 3
 
 
 class TestPictures(Base):
 
-    def test_colour_pictures_tank(self, setup):
+    def check_color_pictures(self, product_type, color_list):
         log = self.get_logger()
         home = HomePage(self.driver)
-        image_names = home.get_image_names_for_tank()
+        image_names = home.get_image_names_for_product(product_type)
+        log.info(image_names)
 
         counter = 0
         for i in range(3):
-            if tank_colors[i] in image_names[i]:
+            if color_list[i] in image_names[i]:
                 counter += 1
 
-        log.info(f"Final-tank-counter: {counter}")
+        log.info(f"Final-{product_type}-counter: {counter}")
         assert counter == EXPECTED_NUMBER_OF_PRODUCTS
+
+    def test_colour_pictures_tank(self, setup):
+        self.check_color_pictures("tank_top", tank_colors)
 
     def test_colour_pictures_hoodie(self, setup):
-        log = self.get_logger()
-        home = HomePage(self.driver)
-        image_names = home.get_image_names_for_hoodie()
-
-        counter = 0
-        for i in range(3):
-            if hoodie_colors[i] in image_names[i]:
-                counter += 1
-
-        log.info(f"Final-hoodie-counter: {counter}")
-        assert counter == EXPECTED_NUMBER_OF_PRODUCTS
+        self.check_color_pictures("hoodie", hoodie_colors)
