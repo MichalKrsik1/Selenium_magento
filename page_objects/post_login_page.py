@@ -21,7 +21,7 @@ class PostLogin:
         return acc_page
 
     def logout(self):
-        time.sleep(2)
+        time.sleep(3)
         self.driver.find_element(*PostLogin._open_menu).click()
         logout_page = self.driver.find_element(*PostLogin._sign_out).click()
 
